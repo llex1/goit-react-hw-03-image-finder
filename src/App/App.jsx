@@ -7,6 +7,7 @@ import ImageGallery from "./components/ImageGallery";
 import ImageGalleryItem from "./components/ImageGalleryItem";
 import Button from "./components/Button";
 import Modal from "./components/Modal";
+import Loader from "react-loader-spinner";
 
 //data
 import api from "./data/api";
@@ -21,11 +22,28 @@ class App extends Component {
     galleryArray: [],
     isModalShow: false,
     modalData: "",
+    loader: {
+      visible: false,
+      type: "Oval",
+      color: "#3f51b5",
+      height: 50,
+      width: 50,
+    },
   };
 
   search = (event, isSearchMore) => {
     event.preventDefault();
+    this.setState((state) => {
+      return {
+        loader: { ...state.loader, visible: true },
+      };
+    });
     if (!isSearchMore) {
+      this.setState((state) => {
+        return {
+          galleryArray: [],
+        };
+      });
       const value = event.target.searchImage.value;
       axios
         .get(
@@ -37,6 +55,13 @@ class App extends Component {
               page: 1,
               value: event.target.searchImage.value,
               galleryArray: [...response.data.hits],
+            };
+          });
+        })
+        .then(() => {
+          this.setState((state) => {
+            return {
+              loader: { ...state.loader, visible: false },
             };
           });
         });
@@ -59,6 +84,13 @@ class App extends Component {
           window.scrollTo({
             top: document.documentElement.scrollHeight,
             behavior: "smooth",
+          });
+        })
+        .then(() => {
+          this.setState((state) => {
+            return {
+              loader: { ...state.loader, visible: false },
+            };
           });
         });
     }
@@ -94,6 +126,7 @@ class App extends Component {
             ""
           )}
         </ImageGallery>
+        <Loader className={styles.Loader} {...this.state.loader} />
         {this.state.galleryArray.length ? (
           <Button searchMore={this.search} />
         ) : (
