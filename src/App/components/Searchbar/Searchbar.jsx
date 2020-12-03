@@ -3,13 +3,13 @@ import styles from "./Searchbar.module.css";
 
 class Searchbar extends Component {
   state = {
-    value: ''
+    value: "",
   };
   formControl = (event) => {
     this.setState({
-      value: event.target.value
-    })
-  }
+      value: event.target.value,
+    });
+  };
   render() {
     return (
       <header className={styles.Searchbar}>
@@ -24,9 +24,9 @@ class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            name='searchImage'
-            value = {this.state.value}
-            onChange = {this.formControl}
+            name="searchImage"
+            value={this.state.value}
+            onChange={this.formControl}
           />
         </form>
       </header>

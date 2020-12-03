@@ -39,6 +39,7 @@ class App extends Component {
       };
     });
     if (!isSearchMore) {
+      //щоб з'явився ЗВЕРХУ спіннер при повторному пошуку
       this.setState((state) => {
         return {
           galleryArray: [],
