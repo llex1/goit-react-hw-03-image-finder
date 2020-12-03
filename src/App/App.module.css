@@ -4,3 +4,10 @@
   grid-gap: 16px;
   padding-bottom: 24px;
 }
+.App::after {
+  content: "using Pixabay API";
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+  opacity: 0.5;
+}
